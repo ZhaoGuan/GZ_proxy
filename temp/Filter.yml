@@ -1,0 +1,6 @@
+FilterUrl :
+FilterHost: [
+            'api.kikakeyboard.com',
+            'sticker.pre.kikakeyboard.com'
+            ]
+FilterPath:

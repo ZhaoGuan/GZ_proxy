@@ -1,0 +1,8 @@
+-
+  Function : RedirectUrl
+  Parameter : {'url': 'https://api.kikakeyboard.com/v1/sticker2/MagicText/all',
+             'new_url': 'http://sticker.pre.kikakeyboard.com/backend-content-sending/v1/sticker2/MagicText/all'}
+-
+  Function : RedirectUrl
+  Parameter : {'url': 'https://api.kikakeyboard.com/v1/sticker2/MagicText/all',
+              'new_url': 'http://34.214.222.244:9090/backend-content-sending/v1/sticker2/MagicText/all'}

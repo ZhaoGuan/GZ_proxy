@@ -10,12 +10,11 @@ class RedirectFunction:
 
     def redirect_url(self, url, new_url):
         request_params = url_analytic(self.flow.request.url)['params']
-        print(request_params)
         if url in self.flow.request.url:
             if request_params != None:
                 new_url = new_url + '?'
-                if isinstance(request_params, list):
-                    for key, value in request_params:
+                if isinstance(request_params, dict):
+                    for key, value in request_params.items():
                         new_url = new_url + key + '=' + value + '&'
                     self.flow.request.url = new_url[:-1]
                 else:
@@ -23,8 +22,10 @@ class RedirectFunction:
                                             list(request_params.values())[0]
             else:
                 self.flow.request.url = new_url
+
         else:
             pass
+
 
     def redirect_host(self, host, new_host):
 
@@ -44,16 +45,17 @@ class RedirectFunction:
         if request_params != None:
             if (self.flow.request.host == new_host) and (self.flow.request.path == path):
                 new_path = new_path + '?'
-                if isinstance(request_params, list):
-                    for key, value in request_params:
+                if isinstance(request_params, dict):
+                    for key, value in request_params.items():
                         new_path = new_path + key + '=' + value + '&'
                     self.flow.request.path = new_path[:-1]
                 else:
                     self.flow.request.path = new_path + list(request_params.keys())[0] + '=' + \
                                              list(request_params.values())[0]
+            self.flow.request.path = new_path
         else:
             pass
-        self.flow.request.path = new_path
+
 
     def redirect_response_json(self, url, response_local_data):
         if url in self.flow.request.url:

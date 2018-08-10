@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # __author__ = 'Gz'
 from ProxyFunction.Real_Time import RealTimResponse
-from basefunction.filter_function import FilterFunction
+from basefunction.old_filter_function import FilterFunction
 
 
 class SelectFunction:
@@ -9,6 +9,7 @@ class SelectFunction:
         self.FF = FilterFunction(http_data)
 
     def select_function(self, function_name, parameter):
+        print(parameter)
         functions = {
             # 过滤器
             'Filter_url': lambda: self.FF.filter_url(parameter['filter_url_list']),

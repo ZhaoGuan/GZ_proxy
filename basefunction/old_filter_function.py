@@ -39,7 +39,7 @@ class FilterFunction(object):
             return False
 
     def filter_host(self, filter_host_list):
-        print(self.request_host)
+        # print(self.request_host)
         if filter_host_list == [] or filter_host_list == None:
             return True
         elif self.request_host in filter_host_list:
@@ -48,13 +48,23 @@ class FilterFunction(object):
             return False
 
     # host 是前提
-    def filter_path(self, filter_host_list, filter_path_list):
-        if (filter_host_list == [] or filter_host_list == None) or (filter_path_list == [] or filter_path_list == None):
-            return True
-        elif (self.request_host in filter_host_list) and (self.request_path in filter_path_list):
-            return True
-        else:
+    def filter_path(self, filter_host_path_list):
+        print(filter_host_path_list)
+        result_list = []
+        for host_path in filter_host_path_list:
+            filter_host = host_path['host']
+            filter_path_list = host_path['path']
+            if (filter_host == None) or (filter_path_list == [] or filter_path_list == None):
+                result = True
+            elif (self.request_host == filter_host) and (self.request_path in filter_path_list):
+                result = True
+            else:
+                result = False
+            result_list.append(result)
+        if False in result_list:
             return False
+        else:
+            return True
 
 
 if __name__ == "__main__":
@@ -67,4 +77,4 @@ if __name__ == "__main__":
             'response_status_code': '1', 'response_reason': '1',
             'response_headers': '1', 'response_content': '1', 'response_text': '1'}
     FF = FilterFunction(data)
-    print(FF.filter_path([], []))
+    print(FF.filter_path([]))

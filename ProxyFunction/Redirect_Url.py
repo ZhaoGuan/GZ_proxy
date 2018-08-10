@@ -18,13 +18,35 @@ parameter2 = {'url': 'http://sticker.pre.kikakeyboard.com/backend-content-sendin
 
 class RedirectUrl:
     def __init__(self, redirect_list):
-        self.redirect_list = redirect_list
+        try:
+            self.redirect_request_list = redirect_list['Request']
+        except:
+            self.redirect_request_list = []
+        try:
+            self.redirect_response_list = redirect_list['Response']
+        except:
+            self.redirect_response_list = []
+        # print(self.redirect_request_list)
+        # print(self.redirect_response_list)
 
     def request(self, flow):
-        for redirect in self.redirect_list:
-            select_redirect_function(flow, redirect['Function'], redirect['Parameter'])
+        if self.redirect_request_list == None:
+            pass
+        elif isinstance(self.redirect_request_list, list):
+            for redirect in self.redirect_request_list:
+                select_redirect_function(flow, redirect['Function'], redirect['Parameter'])
+        else:
+            select_redirect_function(flow, self.redirect_request_list['Function'],
+                                     self.redirect_request_list['Parameter'])
 
     def response(self, flow):
-        print(flow.response.text)
-        select_redirect_function(flow, 'RedirectResponseText', parameter2)
-        print(flow.response.text)
+        # print(flow.response.text)
+        if self.redirect_response_list == None:
+            pass
+        elif isinstance(self.redirect_response_list, list):
+            for redirect in self.redirect_response_list:
+                select_redirect_function(flow, redirect['Function'], redirect['Parameter'])
+        else:
+            select_redirect_function(flow, self.redirect_response_list['Function'],
+                                     self.redirect_response_list['Parameter'])
+        # print(flow.response.text)

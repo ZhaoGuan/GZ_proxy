@@ -56,20 +56,20 @@ def select_realtime_all():
     for data in select_result:
         id = data[0]
         url = data[1]
-        request_method = data[2]
-        request_scheme = data[3]
-        request_host = data[4]
-        request_port = data[5]
-        request_path = data[6]
-        request_http_version = data[7]
-        request_headers = data[8]
-        request_content = data[9]
-        response_http_version = data[10]
-        response_status_code = data[11]
-        response_reason = data[12]
-        response_headers = data[13]
-        response_content = data[14]
-        response_text = data[15]
+        request_method = str(data[2])
+        request_scheme = str(data[3])
+        request_host = str(data[4])
+        request_port = str(data[5])
+        request_path = str(data[6])
+        request_http_version = str(data[7])
+        request_headers = str(data[8])
+        request_content = str(data[9])
+        response_http_version = str(data[10])
+        response_status_code = str(data[11])
+        response_reason = str(data[12])
+        response_headers = str(data[13])
+        response_content = str(data[14])
+        response_text = str(data[15])
         result.append({'id': id, 'url': url, 'request_method': request_method, 'request_scheme': request_scheme,
                        'request_host': request_host,
                        'request_port': request_port, 'request_path': request_path,
@@ -85,15 +85,15 @@ def select_realtime_all():
 def delete_realtime_table():
     cursor.execute('DROP TABLE RealTime')
     select_result = cursor.fetchall()
-    print(select_result)
+    # print(select_result)
 
 
 if __name__ == "__main__":
     # delete_realtime_table()
-    try:
-        creat_RealTime()
-    except:
-        pass
+    # try:
+    #     creat_RealTime()
+    # except:
+    #     pass
     a = select_realtime_all()
     for i in a:
         print(i)

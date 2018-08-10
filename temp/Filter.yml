@@ -1,6 +1,1 @@
-FilterUrl :
-FilterHost: [
-            'api.kikakeyboard.com',
-            'sticker.pre.kikakeyboard.com'
-            ]
-FilterPath:
+FilterMatch : ~u kika|34.214.222.244

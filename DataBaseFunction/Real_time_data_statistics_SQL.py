@@ -3,6 +3,7 @@
 import os
 import sys
 import sqlite3
+import json
 
 PATH = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(PATH + '/..')
@@ -66,12 +67,20 @@ def select_realtime_all():
         request_port = str(data[5])
         request_path = str(data[6])
         request_http_version = str(data[7])
-        request_headers = str(data[8])
+        temp_header = {}
+        for key, value in json.loads(data[8]):
+            temp_header.update({key: value})
+        request_headers = json.dumps(temp_header)
+        # request_headers = str(data[8])
         request_content = str(data[9])
         response_http_version = str(data[10])
         response_status_code = str(data[11])
         response_reason = str(data[12])
-        response_headers = str(data[13])
+        temp_header = {}
+        for key, value in json.loads(data[13]):
+            temp_header.update({key: value})
+        response_headers = json.dumps(temp_header)
+        # response_headers = str(data[13])
         response_content = str(data[14])
         response_text = str(data[15])
         result.append({'id': id, 'url': url, 'request_method': request_method, 'request_scheme': request_scheme,
@@ -97,7 +106,7 @@ if __name__ == "__main__":
         creat_RealTime()
     except:
         pass
-    # a = select_realtime_all()
-    # for i in a:
-    #     print(i)
-    #     print('!!!!!!!!!!!!!!!')
+        # a = select_realtime_all()
+        # for i in a:
+        #     print(i)
+        #     print('!!!!!!!!!!!!!!!')

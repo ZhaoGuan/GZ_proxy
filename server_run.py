@@ -12,4 +12,5 @@ if __name__ == "__main__":
     CORS(app)
     app.blueprint(redirect, url_prefix='/redirect')
     app.blueprint(realtime, url_prefix='/realtime')
+    app.static('/dist', './dist')
     app.run(host="0.0.0.0", port=8888)

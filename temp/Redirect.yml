@@ -1,14 +1,14 @@
 Request:
 -
-  Function : RedirectUrl
-  Parameter : {'url': 'https://api.kikakeyboard.com/v1/stickers2/popup',
-             'new_url': 'http://sticker.pre.kikakeyboard.com/backend-content-sending/popup'}
+#  Function : RedirectUrl
+#  Parameter : {'url': 'https://api.kikakeyboard.com/v1/stickers2/popup',
+#             'new_url': 'http://sticker.pre.kikakeyboard.com/backend-content-sending/popup'}
 #-
 #  Function : RedirectUrl
 #  Parameter : {'url': 'http://sticker.pre.kikakeyboard.com/backend-content-sending/v1/sticker2/MagicText/all',
 #              'new_url': 'http://34.214.222.244:9090/backend-content-sending/v1/sticker2/MagicText/all'}
 Response:
 -
-  Function : RedirectResponseText
-  Parameter : {'url': 'http://sticker.pre.kikakeyboard.com/backend-content-sending/v1/sticker2/MagicText/all',
-              'response_local_data': '{"data":{"info":null},"errorMsg":"ok","errorCode":0}'}
+#  Function : RedirectResponseText
+#  Parameter : {'url': 'http://sticker.pre.kikakeyboard.com/backend-content-sending/v1/sticker2/MagicText/all',
+#              'response_local_data': '{"data":{"info":null},"errorMsg":"ok","errorCode":0}'}

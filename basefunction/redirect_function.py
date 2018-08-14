@@ -29,8 +29,8 @@ class RedirectFunction:
 
     def redirect_host(self, host, new_host):
 
-        if ':' in new_host:
-            new_host = host_analytic(new_host)
+        # if ':' in new_host:
+        #     new_host = host_analytic(new_host)
 
         if self.flow.request.host == host:
             if ':' in new_host:

@@ -66,8 +66,7 @@ def select_redirect_with_id(select_id):
 
 def delete_redirect_table():
     cursor.execute('DROP TABLE Fedirect')
-    select_result = cursor.fetchall()
-    print(select_result)
+    conn.commit()
 
 
 if __name__ == "__main__":

@@ -51,6 +51,10 @@ def insert_realtime_data(url, request_method, request_scheme, request_host, requ
 
 def select_realtime_all():
     result = []
+    try:
+        creat_RealTime()
+    except:
+        pass
     cursor.execute('select * from RealTime')
     select_result = cursor.fetchall()
     for data in select_result:
@@ -84,8 +88,7 @@ def select_realtime_all():
 
 def delete_realtime_table():
     cursor.execute('DROP TABLE RealTime')
-    select_result = cursor.fetchall()
-    # print(select_result)
+    conn.commit()
 
 
 if __name__ == "__main__":

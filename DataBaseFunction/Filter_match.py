@@ -19,37 +19,70 @@ def create_filter():
     conn.commit()
 
 
-def insert_redirect_data(match, describe=''):
+def insert_filter_data(match, describe=''):
     try:
         create_filter()
     except:
         pass
     cursor.execute(
-        'insert into FilterMatch (match, describe) values (?,?)',(match, describe))
+        'insert into FilterMatch (match, describe) values (?,?)', (match, describe))
     conn.commit()
 
 
-def select_redirect_all():
+def select_filter_all():
+    try:
+        create_filter()
+    except:
+        pass
     result = []
     cursor.execute('select * from FilterMatch')
     select_result = cursor.fetchall()
     for data in select_result:
         id = data[0]
         mathch = data[1]
-        result.append({'id': id, 'FilterMatch': mathch})
+        describe = data[2]
+        result.append({'id': id, 'match': mathch, 'describe': describe})
     return result
 
 
-def delete_redirect_table():
-    cursor.execute('DROP TABLE FilterMatch')
+def select_id_filter(select_id):
+    try:
+        create_filter()
+    except:
+        pass
+    result = []
+    cursor.execute('select * from FilterMatch where id=%d' % select_id)
     select_result = cursor.fetchall()
-    print(select_result)
+    for data in select_result:
+        id = data[0]
+        mathch = data[1]
+        describe = data[2]
+    result = {'id': id, 'match': mathch, 'describe': describe}
+    return result
+
+
+def select_id_delete_filter(select_id):
+    try:
+        create_filter()
+    except:
+        pass
+    cursor.execute('DELETE FROM FilterMatch WHERE id = %d' % select_id)
+    conn.commit()
+
+
+def delete_filter_table():
+    cursor.execute('DROP TABLE FilterMatch')
+    conn.commit()
 
 
 if __name__ == "__main__":
-    insert_redirect_data('~u kika')
+    insert_filter_data('~u kika')
     # delete_realtime_table()
-    a = select_redirect_all()
+    a = select_filter_all()
     for i in a:
         print(i)
         print('!!!!!!!!!!!!!!!')
+    # select_id_delete_filter(2)
+    print(select_id_filter(2))
+    a = select_filter_all()
+    print(a)

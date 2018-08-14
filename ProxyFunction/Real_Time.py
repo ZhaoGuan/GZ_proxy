@@ -15,7 +15,7 @@ from DataBaseFunction.Real_time_data_statistics_SQL import insert_realtime_data
 
 class RealTimResponse:
     def __init__(self, filter_match):
-        self.filter_match = filter_match['FilterMatch']
+        self.filter_match = filter_match['match']
         # 在过滤功能和重定向功能同时开始的时候记得要将重定向放入过滤列表
         # self.filter_url_list = filte_list['FilterUrl']
         # self.filter_host_list = filte_list['FilterHost']

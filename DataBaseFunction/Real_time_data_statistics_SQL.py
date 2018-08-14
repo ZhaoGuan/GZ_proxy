@@ -92,12 +92,12 @@ def delete_realtime_table():
 
 
 if __name__ == "__main__":
-    # delete_realtime_table()
-    # try:
-    #     creat_RealTime()
-    # except:
-    #     pass
-    a = select_realtime_all()
-    for i in a:
-        print(i)
-        print('!!!!!!!!!!!!!!!')
+    delete_realtime_table()
+    try:
+        creat_RealTime()
+    except:
+        pass
+    # a = select_realtime_all()
+    # for i in a:
+    #     print(i)
+    #     print('!!!!!!!!!!!!!!!')

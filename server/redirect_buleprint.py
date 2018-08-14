@@ -10,7 +10,7 @@ redirect = Blueprint('redirect')
 
 
 @redirect.route('/RequestRedirect')
-def show_all_redirect(request):
+async def show_all_redirect(request):
     db_data = select_redirect_all()
     request_list = []
     response_list = []
@@ -23,7 +23,7 @@ def show_all_redirect(request):
 
 
 @redirect.route('/ResponseRedirect')
-def show_all_redirect(request):
+async def show_all_redirect(request):
     db_data = select_redirect_all()
     request_list = []
     response_list = []
@@ -36,7 +36,7 @@ def show_all_redirect(request):
 
 
 @redirect.route('/select_redirect', methods=["POST", ])
-def select_redirect(request):
+async def select_redirect(request):
     body = request.body.decode()
     # print(body)
     return sanic_json(json.loads(body))

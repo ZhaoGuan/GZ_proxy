@@ -21,7 +21,7 @@ proxy_pid = 0
 
 
 @run_proxy.route('/')
-def proxy(request):
+async def proxy(request):
     global proxy_pid
     global pool
     if proxy_pid != 0:

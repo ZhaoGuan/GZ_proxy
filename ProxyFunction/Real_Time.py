@@ -47,7 +47,7 @@ class RealTimResponse:
         print(self.filter_match)
         match_result = flowfilter.match(self.filter_match, flow)
         print(match_result)
-        if match_result != None:
+        if match_result:
             insert_realtime_data(self.url, self.request_method, self.request_scheme, self.request_host,
                                  self.request_port,
                                  self.request_path, self.request_http_version, self.request_headers,

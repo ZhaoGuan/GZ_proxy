@@ -15,13 +15,13 @@ selected_filter_path = './temp/Filter.yml'
 
 
 @realtime.route('/show_all_request')
-def show_all_redirect(request):
+async def show_all_redirect(request):
     db_data = select_realtime_all()
     return sanic_json({'data': db_data})
 
 
 @realtime.route('/clear_all_request')
-def clear_all_redirect(request):
+async def clear_all_redirect(request):
     try:
         delete_realtime_table()
         code = 'ok'
@@ -31,7 +31,7 @@ def clear_all_redirect(request):
 
 
 @realtime.route('/show_all_filter')
-def show_all_filter(request):
+async def show_all_filter(request):
     try:
         db_data = select_filter_all()
         code = 'ok'
@@ -42,7 +42,7 @@ def show_all_filter(request):
 
 
 @realtime.route('/add_filter', methods=['POST'])
-def add_filter(request):
+async def add_filter(request):
     match = request.form['match'][0]
     try:
         describe = request.form['describe'][0]
@@ -54,7 +54,7 @@ def add_filter(request):
 
 
 @realtime.route('/select_filter', methods=['POST'])
-def select_filter(request):
+async def select_filter(request):
     delete_id = int(request.form['id'][0])
     try:
         select_filter = select_id_filter(delete_id)
@@ -67,7 +67,7 @@ def select_filter(request):
 
 
 @realtime.route('/using_filter')
-def using_filter(request):
+async def using_filter(request):
     try:
         data = config_reader(selected_filter_path)
         code = 'ok'
@@ -79,7 +79,7 @@ def using_filter(request):
 
 
 @realtime.route('/delete_filter', methods=['POST'])
-def delete_filter(request):
+async def delete_filter(request):
     delete_id = int(request.form['id'][0])
     try:
         select_id_delete_filter(delete_id)
@@ -91,7 +91,7 @@ def delete_filter(request):
 
 
 @realtime.route('/clear_filter')
-def clear_filter(request):
+async def clear_filter(request):
     try:
         delete_filter_table()
         code = 'ok'
@@ -102,9 +102,9 @@ def clear_filter(request):
 
 
 @realtime.route('/cancel_filter')
-def cancel_filter(request):
+async def cancel_filter(request):
     try:
-        data = config_writer({}, selected_filter_path)
+        data = config_writer(None, selected_filter_path)
         code = 'ok'
     except Exception as e:
         print(e)

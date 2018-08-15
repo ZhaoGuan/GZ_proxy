@@ -10,6 +10,7 @@ filter_list = config_reader('./temp/Filter.yml')
 print(redirect_list)
 print(filter_list)
 addons = [
-    # RedirectUrl(redirect_list), RealTimResponse(filter_list)
-    RealTimResponse(filter_list)
+    RedirectUrl(redirect_list), RealTimResponse(filter_list)
+    # RedirectUrl(redirect_list)
+    # RealTimResponse(filter_list)
 ]

@@ -26,27 +26,35 @@ class RedirectUrl:
             self.redirect_response_list = redirect_list['Response']
         except:
             self.redirect_response_list = []
-        # print(self.redirect_request_list)
-        # print(self.redirect_response_list)
 
     def request(self, flow):
         if self.redirect_request_list == None:
             pass
         elif isinstance(self.redirect_request_list, list):
             for redirect in self.redirect_request_list:
-                select_redirect_function(flow, redirect['Function'], redirect['Parameter'])
+                try:
+                    select_redirect_function(flow, redirect['Function'], redirect['Parameter'])
+                except Exception as e:
+                    print(e)
         else:
-            select_redirect_function(flow, self.redirect_request_list['Function'],
-                                     self.redirect_request_list['Parameter'])
+            try:
+                select_redirect_function(flow, self.redirect_request_list['Function'],
+                                         self.redirect_request_list['Parameter'])
+            except Exception as e:
+                print(e)
 
     def response(self, flow):
-        # print(flow.response.text)
         if self.redirect_response_list == None:
             pass
         elif isinstance(self.redirect_response_list, list):
             for redirect in self.redirect_response_list:
-                select_redirect_function(flow, redirect['Function'], redirect['Parameter'])
+                try:
+                    select_redirect_function(flow, redirect['Function'], redirect['Parameter'])
+                except Exception as e:
+                    print(e)
         else:
-            select_redirect_function(flow, self.redirect_response_list['Function'],
-                                     self.redirect_response_list['Parameter'])
-        # print(flow.response.text)
+            try:
+                select_redirect_function(flow, self.redirect_response_list['Function'],
+                                         self.redirect_response_list['Parameter'])
+            except Exception as e:
+                print(e)

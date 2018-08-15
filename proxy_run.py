@@ -11,4 +11,6 @@ print(redirect_list)
 print(filter_list)
 addons = [
     RedirectUrl(redirect_list), RealTimResponse(filter_list)
+    # RedirectUrl(redirect_list)
+    # RealTimResponse(filter_list)
 ]

@@ -3,6 +3,7 @@
 from sanic import Sanic, response
 from server.redirect_buleprint import redirect
 from server.request_buleprint import realtime
+from server.run_proxy_buleprint import run_proxy
 from sanic_cors import CORS, cross_origin
 
 app = Sanic()
@@ -12,5 +13,6 @@ if __name__ == "__main__":
     CORS(app)
     app.blueprint(redirect, url_prefix='/redirect')
     app.blueprint(realtime, url_prefix='/realtime')
+    app.blueprint(run_proxy, url_prefix='/run_proxy')
     app.static('/dist', './dist')
     app.run(host="0.0.0.0", port=8888)

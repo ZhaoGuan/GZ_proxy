@@ -68,7 +68,7 @@ def select_realtime_all():
         request_path = str(data[6])
         request_http_version = str(data[7])
         temp_header = {}
-        for key, value in json.loads(str(data[8]).replace("'", '"')).items():
+        for key, value in json.loads(str(data[8])).items():
             temp_header.update({key: value})
         request_headers = str(json.dumps(temp_header))
         # request_headers = str(data[8])
@@ -77,7 +77,7 @@ def select_realtime_all():
         response_status_code = str(data[11])
         response_reason = str(data[12])
         temp_header = {}
-        for key, value in json.loads(str(data[13]).replace("'", '"')).items():
+        for key, value in json.loads(data[13]).items():
             temp_header.update({key: value})
         response_headers = str(json.dumps(temp_header))
         # response_headers = str(data[13])

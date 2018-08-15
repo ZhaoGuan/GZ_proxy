@@ -49,8 +49,8 @@ class RealTimResponse:
         if match_result:
             insert_realtime_data(flow.request.url, flow.request.method, flow.request.scheme, flow.request.host,
                                  flow.request.port,
-                                 flow.request.path, flow.request.http_version, str(dict(flow.request.headers)),
+                                 flow.request.path, flow.request.http_version, json.dumps(dict(flow.request.headers)),
                                  flow.request.content,
                                  flow.response.http_version, flow.response.status_code, flow.response.reason,
-                                 str(dict(flow.response.headers)),
+                                 json.dumps(dict(flow.response.headers)),
                                  flow.response.content, flow.response.text)

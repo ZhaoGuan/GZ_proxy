@@ -57,6 +57,7 @@ def select_realtime_all():
     except:
         pass
     cursor.execute('select * from RealTime')
+    # 从结果集中获取所有行
     select_result = cursor.fetchall()
     for data in select_result:
         id = data[0]
@@ -68,6 +69,7 @@ def select_realtime_all():
         request_path = str(data[6])
         request_http_version = str(data[7])
         temp_header = {}
+        # 感觉就是格式化了一下
         for key, value in json.loads(str(data[8])).items():
             temp_header.update({key: value})
         request_headers = str(json.dumps(temp_header))
@@ -110,3 +112,4 @@ if __name__ == "__main__":
     for i in a:
         print(i)
         print('!!!!!!!!!!!!!!!')
+    delete_realtime_table()

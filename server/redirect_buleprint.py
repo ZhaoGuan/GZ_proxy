@@ -177,7 +177,7 @@ async def show_all_redirect(request):
 
 @redirect.route('/add_ResponseRedirect', methods=['POST'])
 async def add_RedirectResponse(request):
-    print(request.form)
+    # print(request.form)
     function_name = request.form['function_name'][0]
     url = request.form['Url'][0]
     response = request.form['Response'][0]
@@ -199,7 +199,7 @@ async def add_RedirectResponse(request):
 
 @redirect.route('/add_ResponseStatusCodeRedirect', methods=['POST'])
 async def add_ResponseStatusCodeRedirect(request):
-    print(request.form)
+    # print(request.form)
     function_name = request.form['function_name'][0]
     url = request.form['Url'][0]
     new_status_code = request.form['NewStatusCode'][0]
@@ -231,7 +231,7 @@ async def clear_ResponseRedirect(request):
 
 @redirect.route('/delete_ResponseRedirect', methods=['POST'])
 async def delete_ResponseRedirect(request):
-    print(request.form)
+    # print(request.form)
     select_id = int(request.form['id'][0])
     try:
         select_id_delete_redirect(select_id)
@@ -246,7 +246,7 @@ async def delete_ResponseRedirect(request):
 
 @redirect.route('/select_ResponseRedirect', methods=['POST'])
 async def select_ResponseRedirect(request):
-    print(request.form)
+    # print(request.form)
     select_id = int(request.form['id'][0])
     try:
         data = select_id_redirect(select_id)

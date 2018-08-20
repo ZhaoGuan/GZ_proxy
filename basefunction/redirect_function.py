@@ -26,24 +26,21 @@ class RedirectFunction:
         else:
             pass
 
-
     def redirect_host(self, host, new_host):
-
-        # if ':' in new_host:
-        #     new_host = host_analytic(new_host)
-
+        if ':' in new_host:
+            new_host = host_analytic(new_host)
         if self.flow.request.host == host:
-            if ':' in new_host:
+            if ':' in host:
                 new_host = host_analytic(new_host)
                 self.flow.request.host = new_host['host']
                 self.flow.request.port = int(new_host['port'])
             else:
                 self.flow.request.host = new_host
 
-    def redirect_path(self, new_host, path, new_path):
+    def redirect_path(self, host, path, new_path):
         request_params = url_analytic(self.flow.request.url)['params']
         if request_params != None:
-            if (self.flow.request.host == new_host) and (self.flow.request.path == path):
+            if (self.flow.request.host == host) and (self.flow.request.path == path):
                 new_path = new_path + '?'
                 if isinstance(request_params, dict):
                     for key, value in request_params.items():
@@ -56,10 +53,17 @@ class RedirectFunction:
         else:
             pass
 
+    def redirect_host_path(self, host, new_host, path, new_path):
+        self.redirect_host(host, new_host)
+        self.redirect_path(new_host, path, new_path)
 
     def redirect_response_json(self, url, response_local_data):
         if url in self.flow.request.url:
             self.flow.response.text = response_local_data
+
+    def redirect_stat_code(self, url, new_status_code):
+        if url in self.flow.request.url:
+            self.flow.response.status_code = int(new_status_code)
 
 
 def select_redirect_function(flow, function_name, parameter):
@@ -68,6 +72,9 @@ def select_redirect_function(flow, function_name, parameter):
         "RedirectUrl": lambda: RF.redirect_url(parameter['url'], parameter['new_url']),
         "RedirectHost": lambda: RF.redirect_host(parameter['host'], parameter['new_host']),
         "RedirectPath": lambda: RF.redirect_path(parameter['new_host'], parameter['path'], parameter['new_path']),
-        "RedirectResponseText": lambda: RF.redirect_response_json(parameter['url'], parameter['response_local_data'])
+        "RedirectHostPath": lambda: RF.redirect_host_path(parameter['host'], parameter['new_host'], parameter['path'],
+                                                          parameter['new_path']),
+        "RedirectResponseText": lambda: RF.redirect_response_json(parameter['url'], parameter['response_local_data'], ),
+        "RedirectResponseStatusCode": lambda: RF.redirect_stat_code(parameter['url'], parameter['new_status_code'])
     }
     return functions[function_name]()

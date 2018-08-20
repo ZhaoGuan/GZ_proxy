@@ -48,6 +48,24 @@ def select_redirect_all():
     return result
 
 
+def select_id_redirect(select_id):
+    try:
+        create_redirect()
+    except:
+        pass
+    cursor.execute('select * from Fedirect where id=%d' % select_id)
+    select_result = cursor.fetchall()
+    for data in select_result:
+        id = data[0]
+        type_name = data[1]
+        function = data[2]
+        parameter = data[3]
+        describe = data[4]
+    result = ({'id': id, 'type': type_name, 'function': function, 'parameter': json.loads(parameter),
+               'describe': describe})
+    return result
+
+
 def select_redirect_with_id(select_id):
     result = []
     cursor.execute('select * from Fedirect where id=%s' % select_id)
@@ -64,12 +82,23 @@ def select_redirect_with_id(select_id):
     return result
 
 
-def delete_redirect_table():
-    cursor.execute('DROP TABLE Fedirect')
+def select_id_delete_redirect(select_id):
+    try:
+        create_redirect()
+    except:
+        pass
+    cursor.execute('DELETE FROM Fedirect WHERE id = %d' % select_id)
     conn.commit()
 
 
+def delete_redirect_table():
+    cursor.execute('DROP TABLE Fedirect')
+    conn.commit()
+    create_redirect()
+
+
 if __name__ == "__main__":
+    create_redirect()
     # delete_realtime_table()
     # insert_redirect_data('request', 'RedirectUrl',
     #                      '{"url": "https://api.kikakeyboard.com/v1/sticker2/MagicText/all", "new_url": "http://sticker.pre.kikakeyboard.com/backend-content-sending/v1/sticker2/MagicText/all"}')

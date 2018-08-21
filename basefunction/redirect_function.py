@@ -22,7 +22,6 @@ class RedirectFunction:
                                             list(request_params.values())[0]
             else:
                 self.flow.request.url = new_url
-
         else:
             pass
 

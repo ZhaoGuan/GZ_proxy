@@ -1,2 +1,10 @@
-Request: []
-Response: []
+Request:
+- Function: RedirectUrl
+  Parameter:
+    new_url: http://sticker.pre.kikakeyboard.com/backend-content-sending/popup
+    url: https://api.kikakeyboard.com/v1/stickers2/popup
+Response:
+- Function: RedirectResponseStatusCode
+  Parameter:
+    new_status_code: '{"data":{"info":null},"errorMsg":"ok","errorCode":0}'
+    url: http://sticker.pre.kikakeyboard.com/backend-content-sending/v1/sticker2/MagicText/all

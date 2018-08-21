@@ -50,7 +50,6 @@ def select_id_filter(select_id):
         create_filter()
     except:
         pass
-    result = []
     cursor.execute('select * from FilterMatch where id=%d' % select_id)
     select_result = cursor.fetchall()
     for data in select_result:

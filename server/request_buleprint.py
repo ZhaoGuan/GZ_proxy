@@ -8,6 +8,7 @@ from DataBaseFunction.Real_time_data_statistics_SQL import select_realtime_all, 
 from DataBaseFunction.Filter_match import select_filter_all, insert_filter_data, select_id_delete_filter, \
     delete_filter_table, select_id_filter
 from basefunction.config_function import config_writer, config_reader
+from basefunction.create_filter_match import created_new_match
 
 realtime = Blueprint('request')
 
@@ -69,13 +70,15 @@ async def select_filter(request):
 @realtime.route('/using_filter')
 async def using_filter(request):
     try:
-        data = config_reader(selected_filter_path)
+        # data = config_reader(selected_filter_path)
+        data = created_new_match()
+        # print(str(data))
         code = 'ok'
     except Exception as e:
         print(e)
         code = 'error'
         data = None
-    return sanic_json({"code": code, "data": data})
+    return sanic_json({"code": code, "data": str(data)})
 
 
 @realtime.route('/delete_filter', methods=['POST'])

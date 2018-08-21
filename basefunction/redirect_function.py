@@ -11,7 +11,7 @@ class RedirectFunction:
     def redirect_url(self, url, new_url):
         request_params = url_analytic(self.flow.request.url)['params']
         if url in self.flow.request.url:
-            if request_params != None:
+            if (request_params != None) and ('?' not in new_url):
                 new_url = new_url + '?'
                 if isinstance(request_params, dict):
                     for key, value in request_params.items():

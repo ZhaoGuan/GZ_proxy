@@ -1,5 +1,5 @@
 """
-filter_match = filter_list["match"], har_dump = filter_list["har_dump"]
+将flow中符合har_filter['match']的请求和响应写入har_filter['har_dump']对应的文件中
 """
 
 import json
@@ -28,9 +28,9 @@ SERVERS_SEEN: typing.Set[connections.ServerConnection] = set()
 
 
 class WriteHar:
-    def __init__(self, filter_match, har_dump):
-        self.filter_match = filter_match
-        self.har_dump = har_dump
+    def __init__(self, har_filter):
+        self.filter_match = har_filter['match']
+        self.har_dump = har_filter['har_dump']
 
     # def load(self, l):
     #     l.add_option(
@@ -168,27 +168,27 @@ class WriteHar:
         """
             Called once on script shutdown, after any other events.
         """
-        print("报数！")
+        # print("报数！")
         if self.har_dump:
-            print("111111111111111111111")
+            # print("111111111111111111111")
             json_dump: str = json.dumps(HAR, indent=2)
 
             if self.har_dump == '-':
                 # 这是干嘛的？
-                print("222222222222222222222")
+                # print("222222222222222222222")
                 mitmproxy.ctx.log(json_dump)
             else:
-                print("333333333333333333333")
+                # print("333333333333333333333")
                 raw: bytes = json_dump.encode()
-                print("???????????????????")
+                # print("???????????????????")
                 if self.har_dump.endswith('.zhar'):
                     raw = zlib.compress(raw, 9)
-                print("444444444444444444444")
+                # print("444444444444444444444")
                 with open(self.har_dump, "wb") as f:
-                    print("5555555555555555555")
+                    # print("5555555555555555555")
                     f.write(raw)
 
-                print("6666666666666666666666666")
+                # print("6666666666666666666666666")
                 mitmproxy.ctx.log("HAR dump finished (wrote %s bytes to file)" % len(json_dump))
 
     def format_cookies(self, cookie_list):
@@ -230,5 +230,5 @@ class WriteHar:
         """
         return [{"name": k, "value": v} for k, v in obj.items()]
 
-# addons = [WriteHar("~u baidu", "./dump.har")]
-# addons = [WriteHar("~u kika", "-")]
+# addons = [WriteHar(har_filter)]
+# addons = [WriteHar(filter_list, "-")]

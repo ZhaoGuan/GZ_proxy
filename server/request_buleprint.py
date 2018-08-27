@@ -17,18 +17,30 @@ selected_filter_path = './temp/Filter.yml'
 
 @realtime.route('/show_all_request')
 async def show_all_redirect(request):
-    db_data = select_realtime_all()
-    return sanic_json({'data': db_data})
+    try:
+        db_data = select_realtime_all()
+        message = 'ok'
+        code = 'ok'
+    except Exception as e:
+        db_data = []
+        message = e
+        code = 'error'
+    return sanic_json({'data': db_data, 'message': message, 'code': code})
 
 
 @realtime.route('/clear_all_request')
 async def clear_all_redirect(request):
     try:
         delete_realtime_table()
+        message = 'ok'
         code = 'ok'
-    except:
+        data = []
+    except Exception as e:
         code = 'error'
-    return sanic_json({'code': code})
+        message = e
+        code = 'ok'
+        data = []
+    return sanic_json({'code': code, 'data': data, 'message': message})
 
 
 @realtime.route('/show_all_filter')
@@ -36,22 +48,32 @@ async def show_all_filter(request):
     try:
         db_data = select_filter_all()
         code = 'ok'
-    except:
+        message = 'ok'
+    except Exception as e:
         db_data = []
         code = 'error'
-    return sanic_json({'data': db_data, 'code': code})
+        message = e
+    return sanic_json({'data': db_data, 'code': code, 'message': message})
 
 
 @realtime.route('/add_filter', methods=['POST'])
 async def add_filter(request):
-    match = request.form['match'][0]
+    print(request.form)
+    print(request.headers)
     try:
         describe = request.form['describe'][0]
     except Exception as e:
-        print(e)
         describe = ''
-    insert_filter_data(match, describe)
-    return sanic_json({"code": "ok"})
+    try:
+        match = request.form['match'][0]
+        insert_filter_data(match, describe)
+        code = 'ok'
+        message = 'ok'
+    except Exception as e:
+        code = 'error'
+        message = e
+
+    return sanic_json({"code": code, "message": message})
 
 
 @realtime.route('/select_filter', methods=['POST'])
@@ -61,10 +83,12 @@ async def select_filter(request):
         select_filter = select_id_filter(delete_id)
         config_writer(select_filter, selected_filter_path)
         code = 'ok'
+        message = 'ok'
     except Exception as e:
         print(e)
+        message = e
         code = 'error'
-    return sanic_json({"code": code})
+    return sanic_json({"code": code, 'message': message})
 
 
 @realtime.route('/using_filter')
@@ -74,11 +98,13 @@ async def using_filter(request):
         data = created_new_match()
         # print(str(data))
         code = 'ok'
+        message = 'ok'
     except Exception as e:
         print(e)
+        message = e
         code = 'error'
         data = None
-    return sanic_json({"code": code, "data": str(data)})
+    return sanic_json({"code": code, "data": str(data), 'message': message})
 
 
 @realtime.route('/delete_filter', methods=['POST'])
@@ -87,10 +113,12 @@ async def delete_filter(request):
     try:
         select_id_delete_filter(delete_id)
         code = 'ok'
+        message = 'ok'
     except Exception as e:
         print(e)
+        message = e
         code = 'error'
-    return sanic_json({"code": code})
+    return sanic_json({"code": code, 'message': message})
 
 
 @realtime.route('/clear_filter')
@@ -98,10 +126,12 @@ async def clear_filter(request):
     try:
         delete_filter_table()
         code = 'ok'
+        message = 'ok'
     except Exception as e:
         print(e)
+        message = e
         code = 'error'
-    return sanic_json({"code": code})
+    return sanic_json({"code": code, 'message': message, 'data': []})
 
 
 @realtime.route('/cancel_filter')
@@ -109,7 +139,9 @@ async def cancel_filter(request):
     try:
         data = config_writer(None, selected_filter_path)
         code = 'ok'
+        message = 'ok'
     except Exception as e:
         print(e)
+        message = e
         code = 'error'
-    return sanic_json({"code": code})
+    return sanic_json({"code": code, 'message': message, 'data': []})

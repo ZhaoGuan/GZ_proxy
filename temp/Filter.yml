@@ -1,3 +1,8 @@
 describe: ''
 id: 2
+<<<<<<< HEAD
 match: ~u api.kikakeyboard.com
+=======
+match: ~u kika
+har_dump: ./dump.har
+>>>>>>> kid

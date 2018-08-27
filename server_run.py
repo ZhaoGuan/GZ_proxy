@@ -15,4 +15,4 @@ if __name__ == "__main__":
     app.blueprint(realtime, url_prefix='/realtime')
     app.blueprint(run_proxy, url_prefix='/run_proxy')
     app.static('/dist', './dist')
-    app.run(host="0.0.0.0", port=8888)
+    app.run(host="0.0.0.0", port=8888, workers=2)

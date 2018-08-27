@@ -14,28 +14,23 @@ redirect = Blueprint('redirect')
 
 @redirect.route('/AllRedirect')
 async def show_all_redirect(request):
-    db_data = select_redirect_all()
-    for i in db_data:
-        temp = ''
-        for key, value in i['parameter'].items():
-            temp = temp + key + ' : ' + value + '\n'
-        i['parameter'] = temp
-    return sanic_json({"data": db_data})
+    try:
+        data = select_redirect_all()
+        for i in data:
+            temp = ''
+            for key, value in i['parameter'].items():
+                temp = temp + key + ' : ' + value + '\n'
+            i['parameter'] = temp
+            message = 'ok'
+            code = 'ok'
+    except Exception as e:
+        data = []
+        message = e
+        code = 'error'
+    return sanic_json({"data": data, "code": code, "message": message})
 
 
 # request
-@redirect.route('/RequestRedirect')
-async def show_all_RequestRedirect(request):
-    db_data = select_redirect_all()
-    request_list = []
-    for data in db_data:
-        if data['type'] == 'request':
-            temp = ''
-            for key, value in data['parameter'].items():
-                temp = temp + key + ' : ' + value + '\n'
-            data['parameter'] = temp
-            request_list.append(data)
-    return sanic_json({"Request": request_list})
 
 
 @redirect.route('/add_RequestRedirectUrl', methods=['POST'])
@@ -87,9 +82,11 @@ async def clear_RequestRedirect(request):
     try:
         delete_redirect_table()
         code = 'ok'
-    except:
+        message = 'ok'
+    except Exception as e:
+        message = e
         code = 'error'
-    return sanic_json({'code': code})
+    return sanic_json({'code': code, 'message': message})
 
 
 @redirect.route('/delete_RequestRedirect', methods=['POST'])
@@ -132,9 +129,11 @@ async def clear_selected_RequestRedirect(request):
         clear_config_key("Request", [], selected_Redirect_path)
         clear_config_key("Response", [], selected_Redirect_path)
         code = 'ok'
-    except:
+        message = 'ok'
+    except Exception as e:
+        message = e
         code = 'error'
-    return sanic_json({'code': code})
+    return sanic_json({'code': code, 'message': message})
 
 
 @redirect.route('/using_RequestRedirect')
@@ -151,28 +150,19 @@ async def using_RequestRedirect(request):
                 for key, value in i['Parameter'].items():
                     temp = temp + key + ' : ' + value + '\n'
                 show_data.append({'Function': i['Function'], 'Parameter': temp})
+        message = 'ok'
         code = 'ok'
     except Exception as e:
         print(e)
+        message = e
         show_data = ''
         code = 'error'
-    return sanic_json({'code': code, 'data': show_data})
+    return sanic_json({'code': code, 'data': show_data, 'message': message})
 
 
 # Response
 
-@redirect.route('/ResponseRedirect')
-async def show_all_redirect(request):
-    db_data = select_redirect_all()
-    response_list = []
-    for data in db_data:
-        if data['type'] == 'request':
-            temp = ''
-            for key, value in data['parameter'].items():
-                temp = temp + key + ' : ' + value + '\n'
-            data['parameter'] = temp
-            response_list.append(data)
-    return sanic_json({"Response": response_list})
+
 
 
 @redirect.route('/add_ResponseRedirect', methods=['POST'])
@@ -219,6 +209,7 @@ async def add_ResponseStatusCodeRedirect(request):
     return sanic_json({"code": code, 'message': message})
 
 
+####################################################################
 @redirect.route('/clear_ResponseRedirect')
 async def clear_ResponseRedirect(request):
     try:

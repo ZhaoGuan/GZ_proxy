@@ -31,6 +31,7 @@ async def show_all_redirect(request):
 @realtime.route('/clear_all_request')
 async def clear_all_redirect(request):
     try:
+        # 清除RealTime里面的数据
         delete_realtime_table()
         message = 'ok'
         code = 'ok'

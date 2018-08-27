@@ -9,6 +9,8 @@ redirect_list = config_reader('./temp/Redirect.yml')
 # 那么问题来了这个filter match 的语法。。。。
 # filter_match_data = config_reader('./temp/Filter.yml')
 filter_match_data = created_new_match()
+filter_list = config_reader('./temp/Filter.yml')
+har_filter = config_reader('./temp/Har_Filter.yml')
 print(redirect_list)
 print(filter_match_data)
 addons = [

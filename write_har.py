@@ -231,5 +231,8 @@ class WriteHar:
         """
         return [{"name": k, "value": v} for k, v in obj.items()]
 
-# addons = [WriteHar(har_filter)]
+
+from basefunction.config_function import config_reader
+har_filter = config_reader('./temp/Har_Filter.yml')
+addons = [WriteHar(har_filter)]
 # addons = [WriteHar(filter_list, "-")]

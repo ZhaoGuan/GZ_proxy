@@ -17,6 +17,7 @@ selected_filter_path = './temp/Filter.yml'
 
 @realtime.route('/show_all_request')
 async def show_all_redirect(request):
+    # 过滤得到的数据
     db_data = select_realtime_all()
     return sanic_json({'data': db_data})
 
@@ -24,6 +25,7 @@ async def show_all_redirect(request):
 @realtime.route('/clear_all_request')
 async def clear_all_redirect(request):
     try:
+        # 清除RealTime里面的数据
         delete_realtime_table()
         code = 'ok'
     except:

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 将flow中符合har_filter['match']的请求和响应写入har_filter['har_dump']对应的文件中
 """

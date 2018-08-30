@@ -10,6 +10,6 @@ redirect_list = config_reader('./temp/Redirect.yml')
 filter_match_data = created_new_match()
 har_filter = config_reader('./temp/Har_Filter.yml')
 addons = [
-    WriteHar(har_filter)
-    # WriteHar(har_filter), RedirectUrl(redirect_list), RealTimResponse(filter_match_data)
+    # WriteHar(har_filter)
+    WriteHar(har_filter), RedirectUrl(redirect_list), RealTimResponse(filter_match_data)
 ]

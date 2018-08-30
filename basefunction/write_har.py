@@ -161,12 +161,13 @@ class WriteHar:
                     entry["serverIPAddress"] = str(flow.server_conn.ip_address[0])
 
                 HAR["log"]["entries"].append(entry)
+                self.done_write()
             else:
                 pass
         except:
             pass
 
-    def done(self):
+    def done_write(self):
         """
             Called once on script shutdown, after any other events.
         """

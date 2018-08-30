@@ -27,7 +27,9 @@ async def proxy(request):
     if proxy_pid != 0:
         os.kill(proxy_pid, signal.SIGKILL)
     p = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    # p = subprocess.Popen(cmd, shell=True)
     proxy_pid = p.pid
+    print(proxy_pid)
     if proxy_pid == 0:
         code = 'error'
         message = '启动失败'
@@ -40,13 +42,14 @@ async def proxy(request):
 @run_proxy.route('/stop')
 async def stop_proxy(request):
     global proxy_pid
-    if proxy_pid != 0:
-        os.kill(proxy_pid, signal.SIGKILL)
     if proxy_pid == 0:
         code = 'error'
         message = '没有启动的Proxy进程'
     else:
         os.kill(proxy_pid, signal.SIGKILL)
+        # os.popen('kill -9 %s' % str(proxy_pid))
+        print(proxy_pid)
+        proxy_pid = 0
         code = 'ok'
         message = '已关闭Proxy进程'
     return sanic_json({'code': code, "message": message})

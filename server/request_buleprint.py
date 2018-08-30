@@ -59,8 +59,8 @@ async def show_all_filter(request):
 
 @realtime.route('/add_filter', methods=['POST'])
 async def add_filter(request):
-    print(request.form)
-    print(request.headers)
+    # print(request.form)
+    # print(request.headers)
     try:
         describe = request.form['describe'][0]
     except Exception as e:

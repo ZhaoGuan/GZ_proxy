@@ -30,16 +30,14 @@ SERVERS_SEEN: typing.Set[connections.ServerConnection] = set()
 
 class WriteHar:
     def __init__(self, har_filter):
-        self.filter_match = har_filter['match']
-        self.har_dump = har_filter['har_dump']
-
-    # def load(self, l):
-    #     l.add_option(
-    #         "hardump", str, "", "HAR dump path.",
-    #     )
-    #     l.add_option(
-    #         "filter", str, "", "filter what you want~ yeah!"
-    #     )
+        try:
+            self.filter_match = har_filter['match']
+        except:
+            self.filter_match = None
+        try:
+            self.har_dump = har_filter['har_dump']
+        except:
+            self.har_dump = None
 
     def configure(self, updated):
         HAR.update({
@@ -60,7 +58,10 @@ class WriteHar:
         """
         try:
             match_result = flowfilter.match(self.filter_match, flow)
+            print(match_result)
+            print(self.filter_match)
             if match_result:
+                print('!!!!!!!')
                 # -1 indicates that these values do not apply to current request
                 ssl_time = -1
                 connect_time = -1
@@ -169,28 +170,10 @@ class WriteHar:
         """
             Called once on script shutdown, after any other events.
         """
-        # print("报数！")
         if self.har_dump:
-            # print("111111111111111111111")
-            json_dump: str = json.dumps(HAR, indent=2)
-
-            if self.har_dump == '-':
-                # 这是干嘛的？
-                # print("222222222222222222222")
-                mitmproxy.ctx.log(json_dump)
-            else:
-                # print("333333333333333333333")
-                raw: bytes = json_dump.encode()
-                # print("???????????????????")
-                if self.har_dump.endswith('.zhar'):
-                    raw = zlib.compress(raw, 9)
-                # print("444444444444444444444")
-                with open(self.har_dump, "wb") as f:
-                    # print("5555555555555555555")
-                    f.write(raw)
-
-                # print("6666666666666666666666666")
-                mitmproxy.ctx.log("HAR dump finished (wrote %s bytes to file)" % len(json_dump))
+            with open(self.har_dump, "w") as f:
+                json_dump: str = json.dumps(HAR, indent=2)
+                f.write(json_dump)
 
     def format_cookies(self, cookie_list):
         rv = []
@@ -230,9 +213,3 @@ class WriteHar:
             Convert (key, value) pairs to HAR format.
         """
         return [{"name": k, "value": v} for k, v in obj.items()]
-
-
-from basefunction.config_function import config_reader
-har_filter = config_reader('./temp/Har_Filter.yml')
-addons = [WriteHar(har_filter)]
-# addons = [WriteHar(filter_list, "-")]

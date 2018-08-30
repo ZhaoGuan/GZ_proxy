@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # __author__ = 'Gz'
-a = [True, [False, True]]
-if 'False' in str(a):
-    print('1!!!!!!!!!1')
+import json
+with open('./dump.har') as f:
+    a = f.read()
+    print(json.loads(a))

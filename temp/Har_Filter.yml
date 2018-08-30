@@ -1,4 +1,2 @@
-describe: ''
-id: 2
-match: ~u kika
-har_dump: ./dump.har
+har_dump: /Users/xm/Desktop/project/GZ_proxy/server/../HarRecorded/1kika.har
+match: ~u api.kikakeyboard.com

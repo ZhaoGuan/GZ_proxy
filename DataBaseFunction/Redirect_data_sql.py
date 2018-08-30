@@ -70,7 +70,7 @@ def select_redirect_with_id(select_id):
     result = []
     cursor.execute('select * from Fedirect where id=%s' % select_id)
     select_result = cursor.fetchall()
-    print(select_result)
+    # print(select_result)
     for data in select_result:
         id = data[0]
         type_name = data[1]

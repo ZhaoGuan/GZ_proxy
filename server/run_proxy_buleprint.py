@@ -35,3 +35,18 @@ async def proxy(request):
         code = 'ok'
         message = ''
     return sanic_json({'code': code, "message": message})
+
+
+@run_proxy.route('/stop')
+async def stop_proxy(request):
+    global proxy_pid
+    if proxy_pid != 0:
+        os.kill(proxy_pid, signal.SIGKILL)
+    if proxy_pid == 0:
+        code = 'error'
+        message = '没有启动的Proxy进程'
+    else:
+        os.kill(proxy_pid, signal.SIGKILL)
+        code = 'ok'
+        message = '已关闭Proxy进程'
+    return sanic_json({'code': code, "message": message})

@@ -35,7 +35,7 @@ async def show_all_redirect(request):
 
 @redirect.route('/add_RequestRedirectUrl', methods=['POST'])
 async def add_RequestRedirectUrl(request):
-    print(request.form)
+    # print(request.form)
     function_name = request.form['function_name'][0]
     url = request.form['Url'][0]
     newurl = request.form['newUrl'][0]
@@ -57,7 +57,7 @@ async def add_RequestRedirectUrl(request):
 
 @redirect.route('/add_RequestRedirectHost', methods=['POST'])
 async def add_RequestRedirectHost(request):
-    print(request.form)
+    # print(request.form)
     function_name = request.form['function_name'][0]
     host = request.form['Host'][0]
     newhost = request.form['newHost'][0]
@@ -91,7 +91,7 @@ async def clear_RequestRedirect(request):
 
 @redirect.route('/delete_RequestRedirect', methods=['POST'])
 async def delete_RequestRedirect(request):
-    print(request.form)
+    # print(request.form)
     select_id = int(request.form['id'][0])
     try:
         select_id_delete_redirect(select_id)
@@ -106,11 +106,11 @@ async def delete_RequestRedirect(request):
 
 @redirect.route('/select_RequestRedirect', methods=['POST'])
 async def select_RequestRedirect(request):
-    print(request.form)
+    # print(request.form)
     select_id = int(request.form['id'][0])
     try:
         db_data = select_id_redirect(select_id)
-        print(db_data)
+        # print(db_data)
         data = {'Function': db_data['function'], 'Parameter': db_data['parameter']}
         data_type = db_data['type']
         rewriter_config(data_type, data, selected_Redirect_path)

@@ -65,3 +65,4 @@ if __name__ == '__main__':
     a = get_har_data('/Users/xm/Desktop/project/GZ_proxy/HarRecorded/kika.har')
     # a = open_har('/Users/xm/Desktop/project/GZ_proxy/HarRecorded/kika.har')
     print(a)
+

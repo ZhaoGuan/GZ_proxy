@@ -32,8 +32,10 @@ def clear_config_key(key, value, Yamlfile):
 if __name__ == "__main__":
     import json
 
-    config_writer({'Request': [], 'Response': []}, './../temp/a.yml')
-    a = config_reader('./../temp/a.yml')
+    # config_writer({'Request': [], 'Response': []}, './../temp/a.yml')
+    b = [{'url': None, 'query': {'tag': [], 'type': []}, 'response': {'dataformat': {}}}, {'url': None, 'query': {'tag': [], 'type': []}, 'response': {'dataformat': {}}}]
+    config_writer(b, './../temp/ClientHttpTest')
+    a = config_reader('./../temp/ClientHttpTest')
     print(a)
-    b = json.dumps(a)
-    print(b)
+    # b = json.dumps(a)
+    # print(b)
